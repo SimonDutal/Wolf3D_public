@@ -11,8 +11,9 @@
 //(TODO; will) returns true if error
 static bool load_module(data_t *data, char *name)
 {
-    char module_path[8 + 256] = "assets/";
+    char module_path[8 + my_strlen(name)];
 
+    my_strcpy(module_path, "assets/");
     my_strcpy(module_path + 7, name);
     if (data->arguments.debug)
         mini_printf("    loading %s module.\n", name);
@@ -28,8 +29,7 @@ static bool load_module(data_t *data, char *name)
         &load_environment_texture);
     load_assets_folder(data, module_path, "/textures/gui/",
         &load_gui_texture);
-    load_assets_folder(data, module_path, "/fonts/",
-        &load_font);
+    load_assets_folder(data, module_path, "/fonts/", &load_font);
     return false;
 }
 

@@ -13,7 +13,7 @@ Left click : attack
 1/2/3/4/5 : weapon selection  
 Lshift : sprint  
 escape : pause (in game)  
-enter : resume (in options and pause menu)  
+enter : resume (in options and pause menu), go back to the main menu (in the win screen)  
 
 (this layout was made for AZERTY keyboards)  
 
@@ -86,7 +86,7 @@ ___
 ### Sounds and Graphics
 - [x] At least one animation: Movement, shots, enemies etc.
 - [x] Sound effects and music: Sounds and music to enhance the gaming experience.
-- [ ] Particle effects: Use particles for explosions, shots, etc
+- [x] Particle effects: Use particles for explosions, shots, etc
 ### User interface
 - [x] HUD: Interface displaying essential information such as health, ammunition, etc.
 - [x] Options and Settings
@@ -116,7 +116,7 @@ ___
 - [ ] Special weapons: Unique weapons with special effects.
 - [ ] Dynamic Weather: Integrate changing weather conditions affecting visibility and gameplay.
 - [ ] Difficulty levels: Different difficulty levels adjusting the game settings.
-- [ ] Score and time: Scoring and timing system to measure player performance.
+- [x] Score and time: Scoring and timing system to measure player performance.
 - [ ] Destructible environment: Elements of the decor that can be destroyed or modified.
 - [ ] More complex shapes: display and manage shapes other than squares.
 - [ ] Have a map editor.

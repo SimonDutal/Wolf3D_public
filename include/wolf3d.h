@@ -29,6 +29,8 @@
     #define INTERNAL_WIDTH 800
     #define INTERNAL_HEIGHT 600
 
+    #define DUST_PARTICULES_COUNT 200
+
 typedef struct argument_s {
     bool help;
     bool full_screen;
@@ -41,7 +43,8 @@ enum scene {
     GAME_OPTIONS,
     LORE,
     GAME,
-    PAUSE
+    PAUSE,
+    WIN_SCREEN
 };
 
 typedef struct Player_s {
@@ -67,6 +70,13 @@ typedef struct current_map_s {
     sfImage *floor_image;
 } current_map_t;
 
+typedef struct dust_particule_s {
+    float x_pos;
+    float y_pos;
+    float x_vel;
+    float y_vel;
+} dust_particule_t;
+
 typedef struct data {
     arguments_t arguments;
     Player_t player;
@@ -90,6 +100,8 @@ typedef struct data {
     float tick_duration;
     sfText *hud_text;
     float volume;
+    int score;
+    dust_particule_t dust_particules[200];
 } data_t;
 
 typedef struct ray_s {
@@ -162,6 +174,7 @@ void manage_time(data_t *data);
 void run_menu_scene(data_t *data);
 void render_menu(data_t *data);
 void handle_menu_interactions(data_t *data);
+void start_new_game(data_t *data);
 
 //options
 void run_menu_options_scene(data_t *data);
@@ -172,7 +185,7 @@ void handle_options_interactions(data_t *data);
 //game
 void run_game_scene(data_t *data);
 bool set_new_map(data_t *data, char *name);
-void render_map(data_t *data, map_t *map);
+void render_game(data_t *data, map_t *map);
 void handle_movement(char **map, data_t *data);
 bool create_wall_images(data_t *data);
 void set_sprite_positions(data_t *data);
@@ -180,11 +193,16 @@ void cast_floor_and_ceiling(data_t *data);
 void handle_firearms(data_t *data);
 void render_hud_text(data_t *data);
 void draw_minimap(data_t *data);
+void render_dust_particules(data_t *data);
 
 //pause
 void run_pause_scene(data_t *data);
 void render_pause(data_t *data);
 void handle_pause_interactions(data_t *data);
+
+//win screen
+void run_win_screen_scene(data_t *data);
+void render_win_screen(data_t *data);
 
 //term
 void terminate_game(data_t *data);

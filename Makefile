@@ -35,6 +35,7 @@ SRC	= src/main.c\
 	  src/main_loop/menu/run_menu_scene.c\
 	  src/main_loop/menu/render_menu.c\
 	  src/main_loop/menu/handle_menu_interactions.c\
+	  src/main_loop/menu/start_new_game.c\
 	  src/main_loop/lore/lore_dump.c\
 	  src/main_loop/options/run_options_scene.c\
 	  src/main_loop/options/render_options.c\
@@ -46,11 +47,14 @@ SRC	= src/main.c\
 	  src/main_loop/game/player_movement.c\
 	  src/main_loop/game/render_hud_text.c\
 	  src/main_loop/game/draw_minimap.c\
+	  src/main_loop/game/render_dust_particules.c\
 	  src/main_loop/pause/run_pause_scene.c\
 	  src/main_loop/pause/render_pause.c\
 	  src/main_loop/pause/handle_pause_interactions.c\
 	  src/main_loop/pause/save_game.c\
 	  src/main_loop/menu/load_game.c\
+	  src/main_loop/win_screen/run_win_screen_scene.c\
+	  src/main_loop/win_screen/render_win_screen.c\
 	  src/termination/terminate_game.c\
 	  src/termination/destroy_assets.c\
 
@@ -78,7 +82,8 @@ $(NAME): $(LIB) $(OBJ)
 debug: CFLAGS += -g
 debug: $(NAME)_debug
 
-$(NAME)_debug: fclean $(LIB)
+$(NAME)_debug: fclean
+	make $(LIB)
 	$(CC) -o $(NAME)_debug $(SRC) $(CFLAGS) $(WFLAGS)
 
 $(LIB):
@@ -108,12 +113,15 @@ unit_tests: $(LIB)
 tests_run: clean_tests unit_tests
 	./$(NAME)_test || true
 	gcovr --exclude tests/
-	gcovr --exclude tests/ --txt-metric=branch
+	gcovr --exclude tests/ --txt-metric=branch || true
 
 run: all
 	./$(NAME) -d
 
 test: debug
 	valgrind \
+--track-origins=yes \
+--leak-check=full \
+--show-leak-kinds=all \
 --suppressions=valgrind_suppression \
 ./$(NAME)_debug -d
